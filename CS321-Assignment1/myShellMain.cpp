@@ -103,15 +103,17 @@ void type_prompt()
     cout << "MSH> ";
 }
 
-int read_command(string command, string* parameter
-)
+int read_command(string command, string* parameter)
 {
     int opcode = 0;
 
     cin >> command;
     /* read and parsing the input strings using the strtok() and others */
     /* Write your code here  */
-    // ...
+    string commandstring;
+    getline(cin, commandstring);
+    //istringstream cmdStream(commandstring);
+    //cmdStream >> command;
     /* search the table to return the opcode */
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
@@ -122,7 +124,24 @@ void exec_command(int opcode, string* parameters)
     cout << "Child: Execute command function: 1" + (string)"\n";
     /* Using the case statement to run the simple shell commands */
     /* Write your code here  */
-    // ...
+    switch (opcode)
+    {
+    case 1: //MSHpwd code
+        break;
+    case 2: //MSHcopy code
+        break;
+    case 3: //MSHps [loginName] code
+        break;
+    case 4: //MSHdf [filesystem] code
+        break;
+    case 5: //MSHsearch word fileName code
+        break;
+    case 6: //MSHhistory code
+        break;
+    case 7: //MSHlogout code
+        break;
+    }
+
     if (opcode == LOGOUTCODE) {
         cout << "Child: exit with status = LOGOUTCODE\n";
         exit(LOGOUTCODE);
