@@ -87,11 +87,15 @@ void user_login()
 {
     cout << "User login function: \n";
     /* Write your code here  */
+    string username;
     string password;
-    cout << "Please enter your password gamer: ";
+
+    cout << "Enter username: ";
+    cin >> username;
+    cout << username << "'s password: ";
     cin >> password;
+
     string en_passwd = crypt(password.c_str(), "22");
-    cout << "the encrypted password is " << en_passwd << endl;
 }
 
 void type_prompt()
