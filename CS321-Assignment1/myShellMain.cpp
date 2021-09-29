@@ -24,6 +24,7 @@ int read_command(string command, string* parameters);
 void exec_command(int opcode, string* parameters);
 
 string commands[7];
+string currUser;
 
 list<string> history;
 
@@ -117,6 +118,7 @@ void user_login()
                 if (line.find(en_passwd))
                 {
                     loginFile.close();
+                    currUser = username;
                     break;
                 }
             }
