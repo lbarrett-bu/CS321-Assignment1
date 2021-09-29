@@ -157,9 +157,17 @@ void exec_command(int opcode, string* parameters)
     switch (opcode)
     {
     case 1: 
+    {
         //MSHpwd code
 
+        cout << "New password: ";
+
+        ifstream loginfile;
+        loginfile.open("users.txt");
+
+
         break;
+    }
     case 2: 
         //MSHcopy code
         const char* file1 = parameters[0].c_str();
