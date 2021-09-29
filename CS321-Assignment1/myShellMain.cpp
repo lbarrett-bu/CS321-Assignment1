@@ -136,13 +136,22 @@ void exec_command(int opcode, string* parameters)
         break;
     case 2: 
         //MSHcopy code
+
+        const char* file1 = parameters[0].c_str();
+        const char* file2 = parameters[1].c_str();
         
         //if third parameter isn't input. fileName portions of string need to be replaced with input files
-        system("cat fileName1 fileName2"); 
+        if (parameters[2] == "")
+        {
+            system("cat " + *file1 + *" " + *file2);
+        }
+        else //if third parameter is input. filename portions of string need to be replaced with input files
+        {
+            const char* file3 = parameters[2].c_str();
 
-        //if third parameter is input. filename portions of string need to be replaced with input files
-        system("cat fileName1 fileHame3");
-        system("cat filename2 fileName3");
+            system("cat " + *file1 + *" " + *file3);
+            system("cat " + *file2 + *" " + *file3);
+        }
 
         break;
     case 3: 
