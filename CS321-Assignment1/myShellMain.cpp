@@ -131,6 +131,14 @@ void exec_command(int opcode, string* parameters)
         break;
     case 2: 
         //MSHcopy code
+
+        //if third parameter isn't input. fileName portions of string need to be replaced with input files
+        system("cp fileName1 fileName2"); 
+
+        //if third parameter is input. filename portions of string need to be replaced with input files
+        system("cp fileName1 fileHame3");
+        system("cp filename2 fileName3");
+
         break;
     case 3: 
         //MSHps [loginName] code
