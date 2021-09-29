@@ -21,6 +21,8 @@ void type_prompt();
 int read_command(string command, string* parameters);
 void exec_command(int opcode, string* parameters);
 
+string commands[7];
+
 int main() 
 {
     int i = 0, opcode = 0;
@@ -71,7 +73,14 @@ void build_command()
 {
     cout << "Build command function: \n";
     /* Write your code here */
+    ifstream commandFile;
+    commandFile.open("shelcommands.txt");
     
+    for (int i = 0; i <= 6; i++)
+    {
+        commandFile >> commands[i];
+    }
+    commandFile.close();
 }
 
 void user_login()
