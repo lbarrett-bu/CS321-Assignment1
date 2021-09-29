@@ -46,6 +46,7 @@ int main()
             if (opcode > 0) /* valid command */
             { 
                 history.push_back(commands[opcode - 1]);
+
                 if (pid = fork() != 0) { /* Parent code */
 
                     pid = wait(&status); /* wait for child to exit */
@@ -134,7 +135,6 @@ int read_command(string command, string* parameter)
     int opcode = 0;
     cin >> command;
     /* read and parsing the input strings using the strtok() and others */
-    /* Write your code here  */
     string commandstring;
     getline(cin, commandstring);
     istringstream cmdStream(commandstring);
@@ -158,7 +158,6 @@ void exec_command(int opcode, string* parameters)
         break;
     case 2: 
         //MSHcopy code
-        /*
         const char* file1 = parameters[0].c_str();
         const char* file2 = parameters[1].c_str();
         
@@ -174,27 +173,39 @@ void exec_command(int opcode, string* parameters)
             system("cat " + *file1 + *" " + *file3);
             system("cat " + *file2 + *" " + *file3);
         }
-        */
         break;
     case 3: 
     {
         //MSHps [loginName] code
-        string input = "ps -ef | grep " + parameters[0];
-        const char* command = input.c_str();
-        system(command);
+        if (parameters->length() == 0)
+        {
+            string input = "ps -ef | grep " + parameters[0];
+            const char* command = input.c_str();
+            system(command);
+        }
+        else
+        {
+            system("ps -ef");
+        }
         break;
     }
     case 4: 
     {
         //MSHdf [filesystem] code
-        string input = "df -k | grep " + parameters[0];
-        const char* command = input.c_str();
-        system(command);
+        if (parameters->length() == 0)
+        {
+            string input = "df -k | grep " + parameters[0];
+            const char* command = input.c_str();
+            system(command);
+        }
+        else
+        {
+            system("df -k");
+        }
         break;
     }
     case 5: 
         //MSHsearch word fileName code
-
 
         break;
     case 6:
