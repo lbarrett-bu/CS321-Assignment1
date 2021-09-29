@@ -1,5 +1,6 @@
 #include "passwordEncrypter.h"
 
+#include <ncrypt.h>
 #include <stdlib.h>
 #include <iostream>
 //c++ string class

@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="myShellMian.cpp" />
+    <ClCompile Include="myShellMain.cpp" />
     <ClCompile Include="login.cpp" />
     <ClCompile Include="passwordEncrypter.cpp" />
   </ItemGroup>
