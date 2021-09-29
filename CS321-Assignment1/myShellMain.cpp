@@ -139,6 +139,11 @@ int read_command(string command, string* parameter)
     getline(cin, commandstring);
     istringstream cmdStream(commandstring);
     cmdStream >> command;
+    commandfile.open("MSHcommands");
+    for (int i = 0; i < 7; i++)
+    {
+        
+    }
     /* search the table to return the opcode */
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
@@ -228,7 +233,6 @@ void exec_command(int opcode, string* parameters)
     }
 
     //system("cp " + file1 + " " + file2);
-
     if (opcode == LOGOUTCODE) {
         cout << "Child: exit with status = LOGOUTCODE\n";
         exit(LOGOUTCODE);
