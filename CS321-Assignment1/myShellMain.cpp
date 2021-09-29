@@ -10,6 +10,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 #define N 10 //You may increase N later for the final testing
 #define LOGOUTCODE 5
@@ -99,7 +100,28 @@ void user_login()
     cin >> password;
 
     string en_passwd = crypt(password.c_str(), "22");
+
     // make it so that it compares to the text file
+    ifstream loginFile;
+    loginFile.open("users.txt");
+
+    string line;
+    while (getline(loginFile, line))
+    {
+        istringstream iss(line);
+        while (true)
+        {
+            if (line.find(username))
+            {
+                if (line.find(en_passwd))
+                {
+                    loginFile.close();
+                    break;
+                }
+            }
+            cout << "Login invalid\n";
+        }
+    }
 }
 
 void type_prompt()
@@ -136,7 +158,7 @@ void exec_command(int opcode, string* parameters)
         break;
     case 2: 
         //MSHcopy code
-
+        /*
         const char* file1 = parameters[0].c_str();
         const char* file2 = parameters[1].c_str();
         
@@ -152,7 +174,7 @@ void exec_command(int opcode, string* parameters)
             system("cat " + *file1 + *" " + *file3);
             system("cat " + *file2 + *" " + *file3);
         }
-
+        */
         break;
     case 3: 
     {
