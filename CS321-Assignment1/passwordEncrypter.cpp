@@ -1,7 +1,10 @@
+// how to run me: g++ passwordEncrypter.cpp -lcrypt
+// ./a.out
 #include "passwordEncrypter.h"
 
 #include <stdlib.h>
 #include <iostream>
+#include <crypt.h>
 //c++ string class
 #include <string>
 
