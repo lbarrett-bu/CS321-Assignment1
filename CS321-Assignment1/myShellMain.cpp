@@ -140,7 +140,12 @@ void exec_command(int opcode, string* parameters)
         break;
     case 7: //MSHlogout code
         break;
+    default:
+        cout << "Invalid command\n";
+        break;
     }
+
+    //system("cp " + file1 + " " + file2);
 
     if (opcode == LOGOUTCODE) {
         cout << "Child: exit with status = LOGOUTCODE\n";
