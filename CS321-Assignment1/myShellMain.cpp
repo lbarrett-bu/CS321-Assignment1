@@ -126,19 +126,31 @@ void exec_command(int opcode, string* parameters)
     /* Write your code here  */
     switch (opcode)
     {
-    case 1: //MSHpwd code
+    case 1: 
+        //MSHpwd code
         break;
-    case 2: //MSHcopy code
+    case 2: 
+        //MSHcopy code
         break;
-    case 3: //MSHps [loginName] code
+    case 3: 
+        //MSHps [loginName] code
+        system("ps -ef | grep"); // find a way to make it so that the loginName can be used
         break;
-    case 4: //MSHdf [filesystem] code
+    case 4: 
+        //MSHdf [filesystem] code
+        system("df -k | grep"); // find a way to make it so that filesystem can be used
         break;
-    case 5: //MSHsearch word fileName code
+    case 5: 
+        //MSHsearch word fileName code
+
+
         break;
-    case 6: //MSHhistory code
+    case 6: 
+        //MSHhistory code
+        
         break;
-    case 7: //MSHlogout code
+    case 7: 
+        //MSHlogout code
         break;
     default:
         cout << "Invalid command\n";
