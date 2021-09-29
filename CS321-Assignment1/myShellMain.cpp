@@ -74,7 +74,7 @@ void build_command()
     cout << "Build command function: \n";
     /* Write your code here */
     ifstream commandFile;
-    commandFile.open("shelcommands.txt");
+    commandFile.open("shellcommands.txt");
     
     for (int i = 0; i <= 6; i++)
     {
