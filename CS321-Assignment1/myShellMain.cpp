@@ -139,7 +139,6 @@ int read_command(string command, string* parameter)
     getline(cin, commandstring);
     istringstream cmdStream(commandstring);
     cmdStream >> command;
-    commandfile.open("MSHcommands");
     for (int i = 0; i < 7; i++)
     {
         
