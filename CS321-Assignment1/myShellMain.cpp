@@ -6,6 +6,7 @@
 // include c++ header files
 #include <string>
 #include <iostream>
+#include <fstream>
 
 #define N 10 //You may increase N later for the final testing
 #define LOGOUTCODE 5
@@ -68,14 +69,18 @@ void build_command()
 {
     cout << "Build command function: \n";
     /* Write your code here */
-    // ...
+    
 }
 
 void user_login()
 {
     cout << "User login function: \n";
     /* Write your code here  */
-    // ...
+    string password;
+    cout << "Please enter your password gamer: ";
+    cin >> password;
+    string en_passwd = crypt(password.c_str(), "22");
+    cout << "the encrypted password is " << en_passwd << endl;
 }
 
 void type_prompt()
