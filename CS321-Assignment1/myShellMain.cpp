@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <crypt.h>
+#include <list>
 
 // include c++ header files
 #include <string>
@@ -23,11 +24,15 @@ void exec_command(int opcode, string* parameters);
 
 string commands[7];
 
+list<string> history;
+
 int main() 
 {
     int i = 0, opcode = 0;
     int pid = 0, status = 0;
     string command, parameters[3];
+
+    
 
     build_command(); /* read in the commands into a table or hash table */
 
@@ -41,6 +46,7 @@ int main()
 
             if (opcode > 0) /* valid command */
             { 
+                history.push_back(commands[opcode - 1]);
                 if (pid = fork() != 0) { /* Parent code */
 
                     pid = wait(&status); /* wait for child to exit */
@@ -72,7 +78,6 @@ int main()
 void build_command()
 {
     cout << "Build command function: \n";
-    /* Write your code here */
     ifstream commandFile;
     commandFile.open("shellcommands.txt");
     
@@ -106,14 +111,13 @@ void type_prompt()
 int read_command(string command, string* parameter)
 {
     int opcode = 0;
-
     cin >> command;
     /* read and parsing the input strings using the strtok() and others */
     /* Write your code here  */
     string commandstring;
     getline(cin, commandstring);
-    //istringstream cmdStream(commandstring);
-    //cmdStream >> command;
+    istringstream cmdStream(commandstring);
+    cmdStream >> command;
     /* search the table to return the opcode */
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
@@ -128,37 +132,53 @@ void exec_command(int opcode, string* parameters)
     {
     case 1: 
         //MSHpwd code
+
         break;
     case 2: 
         //MSHcopy code
-
+        
         //if third parameter isn't input. fileName portions of string need to be replaced with input files
-        system("cp fileName1 fileName2"); 
+        system("cat fileName1 fileName2"); 
 
         //if third parameter is input. filename portions of string need to be replaced with input files
-        system("cp fileName1 fileHame3");
-        system("cp filename2 fileName3");
+        system("cat fileName1 fileHame3");
+        system("cat filename2 fileName3");
 
         break;
     case 3: 
+    {
         //MSHps [loginName] code
-        system("ps -ef | grep"); // find a way to make it so that the loginName can be used
+        string input = "ps -ef | grep " + parameters[0];
+        const char* command = input.c_str();
+        system(command);
         break;
+    }
     case 4: 
+    {
         //MSHdf [filesystem] code
-        system("df -k | grep"); // find a way to make it so that filesystem can be used
+        string input = "ps -ef | grep " + parameters[0];
+        const char* command = input.c_str();
+        system(command);
         break;
+    }
     case 5: 
         //MSHsearch word fileName code
 
 
         break;
-    case 6: 
+    case 6:
+    {
         //MSHhistory code
-        
+        for (list<string>::iterator i = history.begin(); i != history.end(); i++)
+        {
+            cout << *i << "\n";
+        }
         break;
+    }
     case 7: 
         //MSHlogout code
+        cout << "Child: exit with status = LOGOUTCODE\n";
+        exit(LOGOUTCODE);
         break;
     default:
         cout << "Invalid command\n";
