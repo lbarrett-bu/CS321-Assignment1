@@ -161,12 +161,27 @@ void exec_command(int opcode, string* parameters)
     case 1: 
     {
         //MSHpwd code
-
+        string newPass;
         cout << "New password: ";
+        cin >> newPass;
+
+        string editPass = crypt(newPass.c_str(), "22");
 
         ifstream loginfile;
         loginfile.open("users.txt");
 
+        string line;
+        while (getline(loginfile, line))
+        {
+            istringstream iss(line);
+            while (true)
+            {
+                if (line.find(currUser))
+                {
+                    
+                }
+            }
+        }
 
         break;
     }
