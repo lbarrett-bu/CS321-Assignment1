@@ -32,8 +32,6 @@ int main()
     int pid = 0, status = 0;
     string command, parameters[3];
 
-    
-
     build_command(); /* read in the commands into a table or hash table */
 
     user_login(); /* Authenticate the user */
@@ -101,6 +99,7 @@ void user_login()
     cin >> password;
 
     string en_passwd = crypt(password.c_str(), "22");
+    // make it so that it compares to the text file
 }
 
 void type_prompt()
@@ -121,6 +120,7 @@ int read_command(string command, string* parameter)
     /* search the table to return the opcode */
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
+    // check whether it's a valid command
 }
 
 void exec_command(int opcode, string* parameters)
@@ -156,7 +156,7 @@ void exec_command(int opcode, string* parameters)
     case 4: 
     {
         //MSHdf [filesystem] code
-        string input = "ps -ef | grep " + parameters[0];
+        string input = "df -k | grep " + parameters[0];
         const char* command = input.c_str();
         system(command);
         break;
@@ -171,7 +171,7 @@ void exec_command(int opcode, string* parameters)
         //MSHhistory code
         for (list<string>::iterator i = history.begin(); i != history.end(); i++)
         {
-            cout << *i << "\n";
+            cout << *i << endl;
         }
         break;
     }
