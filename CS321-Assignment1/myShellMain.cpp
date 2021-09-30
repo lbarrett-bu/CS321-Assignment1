@@ -285,7 +285,7 @@ void exec_command(int opcode, string* parameters)
     case 5:
     {
         //MSHsearch word fileName code
-        string input = "grep " + parameters[0];
+        string input = "grep " + parameters[0] + " " + parameters[1];
         const char* command = input.c_str();
         system(command);
     }
