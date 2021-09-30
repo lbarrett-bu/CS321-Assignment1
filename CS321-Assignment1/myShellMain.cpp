@@ -46,8 +46,6 @@ int main()
 
             if (opcode > 0) /* valid command */
             { 
-                history.push_back(commands[opcode - 1]);
-
                 if (pid = fork() != 0) { /* Parent code */
 
                     pid = wait(&status); /* wait for child to exit */
@@ -140,12 +138,36 @@ int read_command(string command, string* parameter)
     /* read and parsing the input strings using the strtok() and others */
     string commandstring;
     getline(cin, commandstring);
+    history.push_back(commandstring);
     istringstream cmdStream(commandstring);
     cmdStream >> command;
 
-    // store parameters
+    int i = 0;
+    while (i < 3)
+    {
+        cmdStream >> parameter[i];
+        {
+            if (parameter[i] == "")
+            {
+                i = 3;
+            }
+            else
+            {
+                i++;
+            }
+        }
+    }
     
     /* search the table to return the opcode */
+    for (int i = 0; i < 7; i++)
+    {
+        if (command.compare(commands[i]) == 0)
+        {
+            opcode = i + 1;
+            break;
+        }
+    }
+
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
     // check whether it's a valid command
@@ -161,11 +183,15 @@ void exec_command(int opcode, string* parameters)
     case 1: 
     {
         //MSHpwd code
+        string oldPass;
         string newPass;
         cout << "New password: ";
         cin >> newPass;
+        cout << "\nOld password: ";
+        cin >> oldPass;
 
         string editPass = crypt(newPass.c_str(), "22");
+        string oldcPass = crypt(oldPass.c_str(), "22");
 
         ifstream loginfile;
         loginfile.open("users.txt");
@@ -174,14 +200,15 @@ void exec_command(int opcode, string* parameters)
         while (getline(loginfile, line))
         {
             istringstream iss(line);
-            while (true)
+            if (line.find(currUser))
             {
-                if (line.find(currUser))
+                if (line.find(oldcPass))
                 {
-                    // insert changing current password to editPass
-
+                    // editPass should replace oldcPass
+                    break;
                 }
             }
+            cout << "Login invalid\n";
         }
         break;
     }
