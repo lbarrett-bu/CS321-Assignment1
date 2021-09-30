@@ -1,6 +1,7 @@
-MSHpwd 
+MSHpwd
 MSHcopy
-MSHdf 
+MSHps
+MSHdf
 MSHsearch
 MSHhistory
 MSHlogout
