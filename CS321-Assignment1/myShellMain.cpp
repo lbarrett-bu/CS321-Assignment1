@@ -170,14 +170,12 @@ int read_command(string command, string* parameter)
 
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
-    // check whether it's a valid command
 }
 
 void exec_command(int opcode, string* parameters)
 {
     cout << "Child: Execute command function: 1" + (string)"\n";
     /* Using the case statement to run the simple shell commands */
-    /* Write your code here  */
     switch (opcode)
     {
     case 1: 
@@ -185,14 +183,20 @@ void exec_command(int opcode, string* parameters)
         //MSHpwd code
         string oldPass;
         string newPass;
+
+        // Request old password
         cout << "\nOld password: ";
         cin >> oldPass;
+
+        // Request new password
         cout << "\nNew password: ";
         cin >> newPass;
 
+        // encryption of new pass and old pass for comparison
         string editPass = crypt(newPass.c_str(), "22");
         string oldcPass = crypt(oldPass.c_str(), "22");
 
+        // opens users.txt
         ifstream loginfile;
         loginfile.open("users.txt");
 
@@ -201,6 +205,7 @@ void exec_command(int opcode, string* parameters)
 
         string toChange = changeText.str();
 
+        // loops through text file
         string line;
         size_t position;
         while (getline(loginfile, line))
