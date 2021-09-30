@@ -80,7 +80,7 @@ void build_command()
 {
     cout << "Build command function: \n";
     ifstream commandFile;
-    commandFile.open("shellcommands.txt");
+    commandFile.open("MSHcommands.txt");
     
     for (int i = 0; i <= 6; i++)
     {
@@ -141,10 +141,9 @@ int read_command(string command, string* parameter)
     getline(cin, commandstring);
     istringstream cmdStream(commandstring);
     cmdStream >> command;
-    for (int i = 0; i < 7; i++)
-    {
-        
-    }
+
+    // store parameters
+    
     /* search the table to return the opcode */
     if (command.compare("MSHlogout") == 0) opcode = LOGOUTCODE;
     return opcode;
@@ -178,11 +177,11 @@ void exec_command(int opcode, string* parameters)
             {
                 if (line.find(currUser))
                 {
-                    
+                    // insert changing current password to editPass
+
                 }
             }
         }
-
         break;
     }
     case 2: 
@@ -234,8 +233,12 @@ void exec_command(int opcode, string* parameters)
         break;
     }
     case 5: 
+    {
         //MSHsearch word fileName code
-
+        string input = "grep " + parameters[0];
+        const char* command = input.c_str();
+        system(command);
+    }
         break;
     case 6:
     {
