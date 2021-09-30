@@ -95,29 +95,30 @@ void user_login()
     /* Write your code here  */
     string username;
     string password;
-
-    cout << "Enter username: ";
-    cin >> username;
-    cout << username << "'s password: ";
-    cin >> password;
-
-    string en_passwd = crypt(password.c_str(), "22");
-
-    // make it so that it compares to the text file
-    ifstream loginFile;
-    loginFile.open("users.txt");
-
-    string line;
-    while (getline(loginFile, line))
+    bool correctID = false;
+    while (!correctID)
     {
-        istringstream iss(line);
-        while (true)
+        cout << "Enter username: ";
+        cin >> username;
+        cout << username << "'s password: ";
+        cin >> password;
+
+        string en_passwd = crypt(password.c_str(), "22");
+
+        // make it so that it compares to the text file
+        ifstream loginFile;
+        loginFile.open("users.txt");
+
+        string line;
+        while (getline(loginFile, line))
         {
+            istringstream iss(line);
             if (line.find(username))
             {
                 if (line.find(en_passwd))
                 {
                     loginFile.close();
+                    correctID = true;
                     currUser = username;
                     break;
                 }
