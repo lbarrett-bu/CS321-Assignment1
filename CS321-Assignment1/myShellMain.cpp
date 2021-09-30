@@ -45,7 +45,7 @@ int main()
         opcode = read_command(command, parameters); /* input from terminal */
 
             if (opcode > 0) /* valid command */
-            { 
+            {
                 if (pid = fork() != 0) { /* Parent code */
 
                     pid = wait(&status); /* wait for child to exit */
@@ -57,18 +57,17 @@ int main()
                     /* For example: LOGOUTCODE is 0x0500 is child terminated with the command exit(5) */
                 }
                 else /* Child code */
-                { 
+                {
                     exec_command(opcode, parameters); /* execute command */
 
                     exit(0);
-                } 
+                }
                 /* end of child code */
             }
-            else 
-            { 
-                cout << "Invalid command, try again\n"; 
+            else
+            {
+                cout << "Invalid command, try again\n";
             }
-
         i++;
     }
     return (1);
@@ -110,6 +109,7 @@ void user_login()
         string line;
         while (getline(loginFile, line))
         {
+            cout << line << endl;
             istringstream iss(line);
             if (line.find(username))
             {
@@ -121,7 +121,10 @@ void user_login()
                     break;
                 }
             }
-            cout << "Login invalid\n";
+            else
+            { 
+                cout << "Login invalid\n";
+            }
         }
     }
 }
@@ -156,7 +159,7 @@ int read_command(string command, string* parameter)
                 i++;
             }
         }
-    }
+    }    
     
     /* search the table to return the opcode */
     for (int i = 0; i < 7; i++)
