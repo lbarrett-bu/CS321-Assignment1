@@ -211,7 +211,6 @@ void exec_command(int opcode, string* parameters)
         // loops through text file
         string line;
         size_t position;
-        int lineCount = -1;
         while (getline(loginfile, line))
         {
             istringstream iss(line);
@@ -222,12 +221,12 @@ void exec_command(int opcode, string* parameters)
                 {
                     cout << "amogus" << endl;
                     position = line.find(oldcPass);
-                    loginfile[lineCount].replace(position, oldPass.length(), editPass);
+                    toChange.replace(position, oldPass.length(), editPass);
                     loginfile.close();
                     break;
                 }
             }
-            lineCount++;
+            cout << "Login invalid\n";
         }
         break;
     }
