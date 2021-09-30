@@ -185,10 +185,10 @@ void exec_command(int opcode, string* parameters)
         //MSHpwd code
         string oldPass;
         string newPass;
-        cout << "New password: ";
-        cin >> newPass;
         cout << "\nOld password: ";
         cin >> oldPass;
+        cout << "\nNew password: ";
+        cin >> newPass;
 
         string editPass = crypt(newPass.c_str(), "22");
         string oldcPass = crypt(oldPass.c_str(), "22");
@@ -196,7 +196,13 @@ void exec_command(int opcode, string* parameters)
         ifstream loginfile;
         loginfile.open("users.txt");
 
+        ostringstream changeText;
+        changeText << loginfile.rdbuf();
+
+        string toChange = changeText.str();
+
         string line;
+        size_t position;
         while (getline(loginfile, line))
         {
             istringstream iss(line);
@@ -204,7 +210,9 @@ void exec_command(int opcode, string* parameters)
             {
                 if (line.find(oldcPass))
                 {
-                    // editPass should replace oldcPass
+                    position = line.find(oldcPass);
+                    toChange.replace(position, oldPass.length(), editPass);
+                    loginfile.close();
                     break;
                 }
             }
