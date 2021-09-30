@@ -134,7 +134,7 @@ void type_prompt()
 int read_command(string command, string* parameter)
 {
     int opcode = 0;
-    cin >> command;
+    //cin >> command;
     /* read and parsing the input strings using the strtok() and others */
     string commandstring;
     getline(cin, commandstring);
