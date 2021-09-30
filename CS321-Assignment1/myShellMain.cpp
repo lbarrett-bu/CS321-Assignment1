@@ -189,11 +189,11 @@ void exec_command(int opcode, string* parameters)
 
         // Request old password
         cout << "\nOld password: ";
-        cin >> oldPass;
+        getline(cin, oldPass);
 
         // Request new password
         cout << "\nNew password: ";
-        cin >> newPass;
+        getline(cin, newPass);
 
         // encryption of new pass and old pass for comparison
         string editPass = crypt(newPass.c_str(), "22");
@@ -204,27 +204,30 @@ void exec_command(int opcode, string* parameters)
         loginfile.open("users.txt");
 
         ostringstream changeText;
-        changeText << loginfile.rdbuf();
+        //changeText << loginfile.rdbuf();
 
         string toChange = changeText.str();
 
         // loops through text file
         string line;
         size_t position;
+        int lineCount = -1;
         while (getline(loginfile, line))
         {
             istringstream iss(line);
-            if (line.find(currUser))
+            if (line.find(currUser) < line.length())
             {
-                if (line.find(oldcPass))
+                cout << "sus" << endl;
+                if (line.find(oldcPass) < line.length())
                 {
+                    cout << "amogus" << endl;
                     position = line.find(oldcPass);
-                    toChange.replace(position, oldPass.length(), editPass);
+                    loginfile[lineCount].replace(position, oldPass.length(), editPass);
                     loginfile.close();
                     break;
                 }
             }
-            cout << "Login invalid\n";
+            lineCount++;
         }
         break;
     }
