@@ -28,7 +28,7 @@ string currUser;
 
 list<string> history;
 
-int main() 
+int main()
 {
     int i = 0, opcode = 0;
     int pid = 0, status = 0;
@@ -44,30 +44,30 @@ int main()
 
         opcode = read_command(command, parameters); /* input from terminal */
 
-            if (opcode > 0) /* valid command */
-            {
-                if (pid = fork() != 0) { /* Parent code */
+        if (opcode > 0) /* valid command */
+        {
+            if (pid = fork() != 0) { /* Parent code */
 
-                    pid = wait(&status); /* wait for child to exit */
-                    cout << "Parent: returned Child PID = " << pid << "\n";
-                    cout << "Parent: returned Child Status = " << status << "\n";
+                pid = wait(&status); /* wait for child to exit */
+                cout << "Parent: returned Child PID = " << pid << "\n";
+                cout << "Parent: returned Child Status = " << status << "\n";
 
-                    if (status == LOGOUTCODE) exit(0); /* status must be a hex number */
+                if (status == LOGOUTCODE) exit(0); /* status must be a hex number */
 
-                    /* For example: LOGOUTCODE is 0x0500 is child terminated with the command exit(5) */
-                }
-                else /* Child code */
-                {
-                    exec_command(opcode, parameters); /* execute command */
-
-                    exit(0);
-                }
-                /* end of child code */
+                /* For example: LOGOUTCODE is 0x0500 is child terminated with the command exit(5) */
             }
-            else
+            else /* Child code */
             {
-                cout << "Invalid command, try again\n";
+                exec_command(opcode, parameters); /* execute command */
+
+                exit(0);
             }
+            /* end of child code */
+        }
+        else
+        {
+            cout << "Invalid command, try again\n";
+        }
         i++;
     }
     return (1);
@@ -78,7 +78,7 @@ void build_command()
     cout << "Build command function: \n";
     ifstream commandFile;
     commandFile.open("MSHcommands.txt");
-    
+
     for (int i = 0; i <= 6; i++)
     {
         commandFile >> commands[i];
@@ -96,9 +96,9 @@ void user_login()
     while (!correctID)
     {
         cout << "Enter username: ";
-        cin >> username;
+        getline(cin, username);
         cout << username << "'s password: ";
-        cin >> password;
+        getline(cin, password);
 
         string en_passwd = crypt(password.c_str(), "22");
 
@@ -109,11 +109,11 @@ void user_login()
         string line;
         while (getline(loginFile, line))
         {
-            cout << line << endl;
+            //cout << line.length() << endl;
             istringstream iss(line);
-            if (line.find(username))
+            if (line.find(username, 0) < line.length())
             {
-                if (line.find(en_passwd))
+                if (line.find(en_passwd) < line.length())
                 {
                     loginFile.close();
                     correctID = true;
@@ -121,10 +121,10 @@ void user_login()
                     break;
                 }
             }
-            else
-            { 
-                cout << "Login invalid\n";
-            }
+        }
+        if (!correctID)
+        {
+            cout << "Invalid Login" << endl;
         }
     }
 }
@@ -159,8 +159,8 @@ int read_command(string command, string* parameter)
                 i++;
             }
         }
-    }    
-    
+    }
+
     /* search the table to return the opcode */
     for (int i = 0; i < 7; i++)
     {
@@ -181,7 +181,7 @@ void exec_command(int opcode, string* parameters)
     /* Using the case statement to run the simple shell commands */
     switch (opcode)
     {
-    case 1: 
+    case 1:
     {
         //MSHpwd code
         string oldPass;
@@ -228,11 +228,11 @@ void exec_command(int opcode, string* parameters)
         }
         break;
     }
-    case 2: 
+    case 2:
         //MSHcopy code
         //const char* file1 = parameters[0].c_str();
         //const char* file2 = parameters[1].c_str();
-       
+
 
         //if third parameter isn't input. fileName portions of string need to be replaced with input files
         if (parameters[2] == "")
@@ -252,7 +252,7 @@ void exec_command(int opcode, string* parameters)
             system(command2);
         }
         break;
-    case 3: 
+    case 3:
     {
         //MSHps [loginName] code
         if (parameters->length() == 0)
@@ -267,7 +267,7 @@ void exec_command(int opcode, string* parameters)
         }
         break;
     }
-    case 4: 
+    case 4:
     {
         //MSHdf [filesystem] code
         if (parameters->length() == 0)
@@ -282,14 +282,14 @@ void exec_command(int opcode, string* parameters)
         }
         break;
     }
-    case 5: 
+    case 5:
     {
         //MSHsearch word fileName code
         string input = "grep " + parameters[0];
         const char* command = input.c_str();
         system(command);
     }
-        break;
+    break;
     case 6:
     {
         //MSHhistory code
@@ -299,7 +299,7 @@ void exec_command(int opcode, string* parameters)
         }
         break;
     }
-    case 7: 
+    case 7:
         //MSHlogout code
         cout << "Child: exit with status = LOGOUTCODE\n";
         exit(LOGOUTCODE);
