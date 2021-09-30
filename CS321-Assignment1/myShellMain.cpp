@@ -186,20 +186,26 @@ void exec_command(int opcode, string* parameters)
     }
     case 2: 
         //MSHcopy code
-        const char* file1 = parameters[0].c_str();
-        const char* file2 = parameters[1].c_str();
-        
+        //const char* file1 = parameters[0].c_str();
+        //const char* file2 = parameters[1].c_str();
+       
+
         //if third parameter isn't input. fileName portions of string need to be replaced with input files
         if (parameters[2] == "")
         {
-            system("cat " + *file1 + *" " + *file2);
+            string input = "cp " + parameters[0] + " " + parameters[1];
+            const char* command = input.c_str();
+            system(command);
         }
         else //if third parameter is input. filename portions of string need to be replaced with input files
         {
-            const char* file3 = parameters[2].c_str();
+            string input1 = "cp " + parameters[0] + " " + parameters[2];
+            string input2 = "cp " + parameters[1] + " " + parameters[2];
+            const char* command1 = input1.c_str();
+            const char* command2 = input2.c_str();
 
-            system("cat " + *file1 + *" " + *file3);
-            system("cat " + *file2 + *" " + *file3);
+            system(command1);
+            system(command2);
         }
         break;
     case 3: 
